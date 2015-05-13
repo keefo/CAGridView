@@ -11,22 +11,11 @@
 		A70F7CB11B031AF800D824FE /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = A70F7CB01B031AF800D824FE /* main.m */; };
 		A70F7CB31B031AF800D824FE /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A70F7CB21B031AF800D824FE /* Images.xcassets */; };
 		A70F7CB61B031AF800D824FE /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = A70F7CB41B031AF800D824FE /* MainMenu.xib */; };
-		A70F7CC21B031AF800D824FE /* GridViewTests.m in Sources */ = {isa = PBXBuildFile; fileRef = A70F7CC11B031AF800D824FE /* GridViewTests.m */; };
 		A70F7CCD1B031B2E00D824FE /* SFGridView.m in Sources */ = {isa = PBXBuildFile; fileRef = A70F7CCC1B031B2E00D824FE /* SFGridView.m */; };
 		A70F7CD21B03208E00D824FE /* SFGridItemBase.m in Sources */ = {isa = PBXBuildFile; fileRef = A70F7CD11B03208E00D824FE /* SFGridItemBase.m */; };
 		A70F7CD51B0320A500D824FE /* SFGridItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = A70F7CD41B0320A500D824FE /* SFGridItemView.m */; };
 		A70F7CD81B032C5100D824FE /* TestView.m in Sources */ = {isa = PBXBuildFile; fileRef = A70F7CD71B032C5100D824FE /* TestView.m */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXContainerItemProxy section */
-		A70F7CBC1B031AF800D824FE /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = A70F7CA01B031AF800D824FE /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = A70F7CA71B031AF800D824FE;
-			remoteInfo = GridView;
-		};
-/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		A70F7CA81B031AF800D824FE /* CAGridView.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CAGridView.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -36,9 +25,6 @@
 		A70F7CB01B031AF800D824FE /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		A70F7CB21B031AF800D824FE /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		A70F7CB51B031AF800D824FE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
-		A70F7CBB1B031AF800D824FE /* CAGridViewTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CAGridViewTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		A70F7CC01B031AF800D824FE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		A70F7CC11B031AF800D824FE /* GridViewTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GridViewTests.m; sourceTree = "<group>"; };
 		A70F7CCB1B031B2E00D824FE /* SFGridView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFGridView.h; sourceTree = "<group>"; };
 		A70F7CCC1B031B2E00D824FE /* SFGridView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SFGridView.m; sourceTree = "<group>"; };
 		A70F7CD01B03208E00D824FE /* SFGridItemBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFGridItemBase.h; sourceTree = "<group>"; };
@@ -57,13 +43,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		A70F7CB81B031AF800D824FE /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -71,7 +50,6 @@
 			isa = PBXGroup;
 			children = (
 				A70F7CAA1B031AF800D824FE /* GridView */,
-				A70F7CBE1B031AF800D824FE /* GridViewTests */,
 				A70F7CA91B031AF800D824FE /* Products */,
 			);
 			sourceTree = "<group>";
@@ -80,7 +58,6 @@
 			isa = PBXGroup;
 			children = (
 				A70F7CA81B031AF800D824FE /* CAGridView.app */,
-				A70F7CBB1B031AF800D824FE /* CAGridViewTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -114,23 +91,6 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		A70F7CBE1B031AF800D824FE /* GridViewTests */ = {
-			isa = PBXGroup;
-			children = (
-				A70F7CC11B031AF800D824FE /* GridViewTests.m */,
-				A70F7CBF1B031AF800D824FE /* Supporting Files */,
-			);
-			path = GridViewTests;
-			sourceTree = "<group>";
-		};
-		A70F7CBF1B031AF800D824FE /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				A70F7CC01B031AF800D824FE /* Info.plist */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -151,24 +111,6 @@
 			productReference = A70F7CA81B031AF800D824FE /* CAGridView.app */;
 			productType = "com.apple.product-type.application";
 		};
-		A70F7CBA1B031AF800D824FE /* CAGridViewTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = A70F7CC81B031AF800D824FE /* Build configuration list for PBXNativeTarget "CAGridViewTests" */;
-			buildPhases = (
-				A70F7CB71B031AF800D824FE /* Sources */,
-				A70F7CB81B031AF800D824FE /* Frameworks */,
-				A70F7CB91B031AF800D824FE /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				A70F7CBD1B031AF800D824FE /* PBXTargetDependency */,
-			);
-			name = CAGridViewTests;
-			productName = GridViewTests;
-			productReference = A70F7CBB1B031AF800D824FE /* CAGridViewTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -180,10 +122,6 @@
 				TargetAttributes = {
 					A70F7CA71B031AF800D824FE = {
 						CreatedOnToolsVersion = 6.2;
-					};
-					A70F7CBA1B031AF800D824FE = {
-						CreatedOnToolsVersion = 6.2;
-						TestTargetID = A70F7CA71B031AF800D824FE;
 					};
 				};
 			};
@@ -201,7 +139,6 @@
 			projectRoot = "";
 			targets = (
 				A70F7CA71B031AF800D824FE /* CAGridView */,
-				A70F7CBA1B031AF800D824FE /* CAGridViewTests */,
 			);
 		};
 /* End PBXProject section */
@@ -213,13 +150,6 @@
 			files = (
 				A70F7CB31B031AF800D824FE /* Images.xcassets in Resources */,
 				A70F7CB61B031AF800D824FE /* MainMenu.xib in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		A70F7CB91B031AF800D824FE /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -239,23 +169,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		A70F7CB71B031AF800D824FE /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				A70F7CC21B031AF800D824FE /* GridViewTests.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		A70F7CBD1B031AF800D824FE /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = A70F7CA71B031AF800D824FE /* CAGridView */;
-			targetProxy = A70F7CBC1B031AF800D824FE /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		A70F7CB41B031AF800D824FE /* MainMenu.xib */ = {
@@ -367,42 +281,6 @@
 			};
 			name = Release;
 		};
-		A70F7CC91B031AF800D824FE /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				COMBINE_HIDPI_IMAGES = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(DEVELOPER_FRAMEWORKS_DIR)",
-					"$(inherited)",
-				);
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = GridViewTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
-				PRODUCT_NAME = CAGridViewTests;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/GridView.app/Contents/MacOS/GridView";
-			};
-			name = Debug;
-		};
-		A70F7CCA1B031AF800D824FE /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				COMBINE_HIDPI_IMAGES = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(DEVELOPER_FRAMEWORKS_DIR)",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = GridViewTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
-				PRODUCT_NAME = CAGridViewTests;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/GridView.app/Contents/MacOS/GridView";
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -420,15 +298,6 @@
 			buildConfigurations = (
 				A70F7CC61B031AF800D824FE /* Debug */,
 				A70F7CC71B031AF800D824FE /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		A70F7CC81B031AF800D824FE /* Build configuration list for PBXNativeTarget "CAGridViewTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				A70F7CC91B031AF800D824FE /* Debug */,
-				A70F7CCA1B031AF800D824FE /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
