@@ -10,7 +10,6 @@
 #import <AppKit/NSMenu.h>
 #import <AppKit/NSMenuItem.h>
 #import <AppKit/NSEvent.h>
-#import "UIGridViewCell+UIPrivate.h"
 #import "UIColor.h"
 #import "UITouch.h"
 
@@ -28,13 +27,16 @@ NSString *const UIGridViewIndexSearch = @"{search}";
 const CGFloat _UIGridViewDefaultRowHeight = 90;
 
 @interface UIGridView ()
+{
+    UIGridViewSection *_fixedSectionHeader;
+}
 - (void)_setNeedsReload;
 @end
 
 
 @implementation UIGridView
 
-@synthesize style=_style, dataSource=_dataSource, rowHeight=_rowHeight, separatorStyle=_separatorStyle, separatorColor=_separatorColor;
+@synthesize style=_style, dataSource=_dataSource, rowHeight=_rowHeight;
 @synthesize tableHeaderView=_tableHeaderView, tableFooterView=_tableFooterView, allowsSelection=_allowsSelection, editing=_editing;
 @synthesize sectionFooterHeight=_sectionFooterHeight, sectionHeaderHeight=_sectionHeaderHeight;
 @synthesize allowsSelectionDuringEditing=_allowsSelectionDuringEditing, backgroundView=_backgroundView;
@@ -80,8 +82,24 @@ const CGFloat _UIGridViewDefaultRowHeight = 90;
     [_cachedCells release];
     [_sections release];
     [_reusableCells release];
-    [_separatorColor release];
+    [_fixedSectionHeader release];
     [super dealloc];
+}
+
+- (void)setFixSectionHeader:(BOOL)fixSectionHeader
+{
+    _fixSectionHeader = fixSectionHeader;
+    if (_fixSectionHeader) {
+        _fixedSectionHeader = [[UIGridViewSection alloc] init];
+        _fixedSectionHeader.headerView = [UIGridViewSectionLabel sectionLabelWithTitle:@""];
+        _fixedSectionHeader.headerView.frame = CGRectMake(0, 0, self.bounds.size.width, 50);
+        [self addSubview:_fixedSectionHeader.headerView];
+    }
+    else{
+        [_fixedSectionHeader.headerView removeFromSuperview];
+        [_fixedSectionHeader release];
+        _fixedSectionHeader = nil;
+    }
 }
 
 - (void)setDataSource:(id<UIGridViewDataSource>)newSource
@@ -245,16 +263,26 @@ const CGFloat _UIGridViewDefaultRowHeight = 90;
     NSMutableDictionary *availableCells = [_cachedCells mutableCopy];
     const NSInteger numberOfSections = [_sections count];
     [_cachedCells removeAllObjects];
+    UIGridViewSection *firstSectionRecord = nil;
+    UIGridViewSection *secondSectionRecord = nil;
     
     for (NSInteger section=0; section<numberOfSections; section++) {
         CGRect sectionRect = [self rectForSection:section];
         tableHeight += sectionRect.size.height;
         if (CGRectIntersectsRect(sectionRect, visibleBounds)) {
+            
             const CGRect headerRect = [self rectForHeaderInSection:section];
             const CGRect footerRect = [self rectForFooterInSection:section];
             UIGridViewSection *sectionRecord = [_sections objectAtIndex:section];
             const NSInteger numberOfRows = sectionRecord.numberOfRows;
             const NSInteger numberOfItems = sectionRecord.numberOfItems;
+            
+            if (firstSectionRecord==nil) {
+                firstSectionRecord = sectionRecord;
+            }
+            else if(secondSectionRecord==nil){
+                secondSectionRecord = sectionRecord;
+            }
             
             if (sectionRecord.headerView) {
                 sectionRecord.headerView.frame = headerRect;
@@ -276,7 +304,6 @@ const CGFloat _UIGridViewDefaultRowHeight = 90;
                         cell.selected = [_selectedRow isEqual:indexPath];
                         cell.frame = itemect;
                         cell.backgroundColor = self.backgroundColor;
-                        [cell _setSeparatorStyle:_separatorStyle color:_separatorColor];
                         [self addSubview:cell];
                     }
                 }
@@ -315,6 +342,32 @@ const CGFloat _UIGridViewDefaultRowHeight = 90;
         tableFooterFrame.origin = CGPointMake(0,tableHeight);
         tableFooterFrame.size.width = boundsSize.width;
         _tableFooterView.frame = tableFooterFrame;
+    }
+    
+    if(_fixedSectionHeader){
+        int offset = 0;
+        if (_tableHeaderView) {
+            offset = _tableHeaderView.bounds.size.height;
+        }
+        if(contentOffset>offset && firstSectionRecord){
+            
+            CGRect tableHeaderFrame = _tableHeaderView.frame;
+            tableHeaderFrame.origin = CGPointMake(0, contentOffset);
+            tableHeaderFrame.size.width = boundsSize.width;
+            tableHeaderFrame.size.height = _sectionHeaderHeight;
+            
+            if(NSIntersectsRect(secondSectionRecord.headerView.frame, tableHeaderFrame)){
+                tableHeaderFrame.origin.y -= abs(contentOffset-(secondSectionRecord.headerView.frame.origin.y-secondSectionRecord.headerView.frame.size.height));
+            }
+            
+            _fixedSectionHeader.headerView.frame = tableHeaderFrame;
+            [_fixedSectionHeader setHeaderTitleAndLabel:firstSectionRecord.headerTitle];
+            [self bringSubviewToFront:_fixedSectionHeader.headerView];
+            [_fixedSectionHeader.headerView setHidden:NO];
+        }
+        else{
+            [_fixedSectionHeader.headerView setHidden:YES];
+        }
     }
 }
 
@@ -365,14 +418,10 @@ const CGFloat _UIGridViewDefaultRowHeight = 90;
             
             const CGFloat defaultRowHeight = _rowHeight ?: _UIGridViewDefaultRowHeight;
             NSInteger numberOfColumns = [self numberOfColumns];
-            CGFloat itemWidth = self.bounds.size.width/numberOfColumns;
+            CGFloat itemWidth = ceil(self.bounds.size.width/numberOfColumns);
+            CGFloat offset = [self _offsetForSection:section] + sectionRecord.headerHeight;
             
-            CGFloat offset = [self _offsetForSection:section];
-            
-            offset += sectionRecord.headerHeight;
-            offset += sectionRecord.rowsHeight;
-            
-            return CGRectMake(itemWidth * (index % numberOfColumns), offset + ((int)ceil((index+1) / numberOfColumns)*defaultRowHeight), itemWidth, defaultRowHeight);
+            return CGRectMake(itemWidth * (index % numberOfColumns), offset + ((int)ceil(index / numberOfColumns)*defaultRowHeight), itemWidth, defaultRowHeight);
         }
     }
     return CGRectZero;
@@ -419,7 +468,7 @@ const CGFloat _UIGridViewDefaultRowHeight = 90;
 }
 
 
-- (NSArray *)indexPathsForRowsInRect:(CGRect)rect
+- (NSArray *)indexPathsForItemsInRect:(CGRect)rect
 {
     // This needs to return the index paths even if the cells don't exist in any caches or are not on screen
     // For now I'm assuming the cells stretch all the way across the view. It's not clear to me if the real
@@ -447,7 +496,7 @@ const CGFloat _UIGridViewDefaultRowHeight = 90;
             
             for (NSInteger idx=0; idx<numberOfItems; idx++) {
                 
-                CGRect simpleItemRect = CGRectMake(columnWidth * (idx % numberOfColumns), offset, columnWidth, defaultRowHeight);
+                CGRect simpleItemRect = [self rectForItemAtIndex:idx andSection:section];
                 
                 if (CGRectIntersectsRect(rect,simpleItemRect)) {
                     [results addObject:[NSIndexPath indexPathForIndex:idx inSection:section]];
@@ -468,9 +517,9 @@ const CGFloat _UIGridViewDefaultRowHeight = 90;
     return [results autorelease];
 }
 
-- (NSIndexPath *)indexPathForRowAtPoint:(CGPoint)point
+- (NSIndexPath *)indexPathForItemAtPoint:(CGPoint)point
 {
-    NSArray *paths = [self indexPathsForRowsInRect:CGRectMake(point.x,point.y,1,1)];
+    NSArray *paths = [self indexPathsForItemsInRect:CGRectMake(point.x,point.y,1,1)];
     return ([paths count] > 0)? [paths objectAtIndex:0] : nil;
 }
 
@@ -540,8 +589,13 @@ const CGFloat _UIGridViewDefaultRowHeight = 90;
 
 - (NSInteger)numberOfColumns
 {
-    const CGFloat defaultRowHeight = _rowHeight ?: _UIGridViewDefaultRowHeight;
-    int numberofcolumns = ceil(self.bounds.size.width/defaultRowHeight);
+    CGFloat defaultRowHeight = _rowHeight ?: _UIGridViewDefaultRowHeight;
+    if (self.bounds.size.width<defaultRowHeight) {
+        defaultRowHeight = self.bounds.size.width;
+    }
+    int numberofcolumns = floor(self.bounds.size.width/defaultRowHeight);
+    if(numberofcolumns<1)
+        numberofcolumns=1;
     return numberofcolumns;
 }
 
@@ -558,7 +612,7 @@ const CGFloat _UIGridViewDefaultRowHeight = 90;
 {
     NSInteger num = [self numberOfItemsInSection:section];
     NSInteger col = [self numberOfColumns];
-    return ceil(num/col);
+    return ceil((double)num/(double)col);
 }
 
 - (NSInteger)numberOfItemsInSection:(NSInteger)section
@@ -754,28 +808,10 @@ const CGFloat _UIGridViewDefaultRowHeight = 90;
         UITouch *touch = [touches anyObject];
         const CGPoint location = [touch locationInView:self];
         
-        _highlightedRow = [[self indexPathForRowAtPoint:location] retain];
+        _highlightedRow = [[self indexPathForItemAtPoint:location] retain];
         [self cellForRowAtIndexPath:_highlightedRow].highlighted = YES;
     }
-}
-
-- (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
-{
-    // this isn't quite how iOS seems to do it, but I think it makes sense on OSX
-    if (_highlightedRow) {
-        UITouch *touch = [touches anyObject];
-        const CGPoint location = [touch locationInView:self];
-        
-        if (!CGRectContainsPoint([self rectForItemAtIndex:_highlightedRow.row andSection:_highlightedRow.section], location)) {
-            [self cellForRowAtIndexPath:_highlightedRow].highlighted = NO;
-            [_highlightedRow release];
-            _highlightedRow = nil;
-        }
-    }
-}
-
-- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
-{
+    
     if (_highlightedRow) {
         NSIndexPath *selectedRow = [self indexPathForSelectedRow];
         
@@ -809,6 +845,61 @@ const CGFloat _UIGridViewDefaultRowHeight = 90;
         [_highlightedRow release];
         _highlightedRow = nil;
     }
+
+
+}
+
+- (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    // this isn't quite how iOS seems to do it, but I think it makes sense on OSX
+    if (_highlightedRow) {
+        UITouch *touch = [touches anyObject];
+        const CGPoint location = [touch locationInView:self];
+        
+        if (!CGRectContainsPoint([self rectForItemAtIndex:_highlightedRow.row andSection:_highlightedRow.section], location)) {
+            [self cellForRowAtIndexPath:_highlightedRow].highlighted = NO;
+            [_highlightedRow release];
+            _highlightedRow = nil;
+        }
+    }
+}
+
+- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    /*
+    if (_highlightedRow) {
+        NSIndexPath *selectedRow = [self indexPathForSelectedRow];
+        
+        if (selectedRow) {
+            NSIndexPath *rowToDeselect = selectedRow;
+            
+            if (_delegateHas.willDeselectRowAtIndexPath) {
+                rowToDeselect = [_delegate gridView:self willDeselectRowAtIndexPath:rowToDeselect];
+            }
+            
+            [self deselectRowAtIndexPath:rowToDeselect animated:NO];
+            
+            if (_delegateHas.didDeselectRowAtIndexPath) {
+                [_delegate gridView:self didDeselectRowAtIndexPath:rowToDeselect];
+            }
+        }
+        
+        NSIndexPath *rowToSelect = _highlightedRow;
+        
+        if (_delegateHas.willSelectRowAtIndexPath) {
+            rowToSelect = [_delegate gridView:self willSelectRowAtIndexPath:rowToSelect];
+        }
+        
+        [self cellForRowAtIndexPath:_highlightedRow].highlighted = NO;
+        [self selectRowAtIndexPath:rowToSelect animated:NO scrollPosition:UIGridViewScrollPositionNone];
+        
+        if (_delegateHas.didSelectRowAtIndexPath) {
+            [_delegate gridView:self didSelectRowAtIndexPath:rowToSelect];
+        }
+        
+        [_highlightedRow release];
+        _highlightedRow = nil;
+    }*/
 }
 
 - (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event
@@ -901,7 +992,7 @@ const CGFloat _UIGridViewDefaultRowHeight = 90;
 - (void)rightClick:(UITouch *)touch withEvent:(UIEvent *)event
 {
     CGPoint location = [touch locationInView:self];
-    NSIndexPath *touchedRow = [self indexPathForRowAtPoint:location];
+    NSIndexPath *touchedRow = [self indexPathForItemAtPoint:location];
     
     // this is meant to emulate UIKit's swipe-to-delete feature on Mac by way of a right-click menu
     if (touchedRow && [self _canEditRowAtIndexPath:touchedRow]) {

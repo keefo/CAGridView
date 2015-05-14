@@ -27,6 +27,7 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+#import <AppKit/AppKit.h>
 #import "UIImage+UIPrivate.h"
 #import "UIThreePartImage.h"
 #import "UINinePartImage.h"
@@ -43,12 +44,21 @@
     UIImage *img = [self imageWithContentsOfFile:path];
     
     if (!img) {
+        NSImage *nsimage = [NSImage imageNamed:name];
+        if(nsimage){
+            NSData *imageData = [nsimage TIFFRepresentation];
+            img = [self imageWithData:imageData];
+        }
+    }
+    
+    if (!img) {
         // if nothing is found, try again after replacing any underscores in the name with dashes.
         // I don't know why, but UIKit does something similar. it probably has a good reason and it might not be this simplistic, but
         // for now this little hack makes Ramp Champ work. :)
         path = [[[bundle resourcePath] stringByAppendingPathComponent:[[name stringByDeletingPathExtension] stringByReplacingOccurrencesOfString:@"_" withString:@"-"]] stringByAppendingPathExtension:[name pathExtension]];
         img = [self imageWithContentsOfFile:path];
     }
+    
     
     return img;
 }

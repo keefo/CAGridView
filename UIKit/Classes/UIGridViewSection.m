@@ -29,6 +29,7 @@
 
 #import "UIGridViewSection.h"
 #import "UIView.h"
+#import "UIGridViewSectionLabel.h"
 
 @implementation UIGridViewSection
 @synthesize rowsHeight, headerHeight, footerHeight, numberOfRows, numberOfItems, headerView, footerView, headerTitle, footerTitle;
@@ -36,6 +37,17 @@
 - (CGFloat)sectionHeight
 {
     return rowsHeight + headerHeight + footerHeight;
+}
+
+- (void)setHeaderTitleAndLabel:(NSString *)t;
+{
+    if (headerTitle!=t) {
+        headerTitle = t;
+        if ([self.headerView isKindOfClass:[UIGridViewSectionLabel class]]) {
+            UIGridViewSectionLabel *labelView = (UIGridViewSectionLabel*)self.headerView;
+            labelView.text = [NSString stringWithFormat:@"  %@", headerTitle];
+        }
+    }
 }
 
 - (void)setNumberOfRows:(NSInteger)rows setNumberOfItems:(NSInteger)items withHeights:(CGFloat)newRowHeight;

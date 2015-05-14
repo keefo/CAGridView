@@ -7,9 +7,6 @@
 //
 
 #import "UIGridViewCell.h"
-
-#import "UIGridViewCell+UIPrivate.h"
-#import "UIGridViewCellSeparator.h"
 #import "UIColor.h"
 #import "UILabel.h"
 #import "UIImageView.h"
@@ -33,9 +30,6 @@ extern CGFloat _UIGridViewDefaultRowHeight;
         _style = UIGridViewCellStyleDefault;
         _selectionStyle = UIGridViewCellSelectionStyleBlue;
         
-        _seperatorView = [[UIGridViewCellSeparator alloc] init];
-        [self addSubview:_seperatorView];
-        
         self.accessoryType = UIGridViewCellAccessoryNone;
         self.editingAccessoryType = UIGridViewCellAccessoryNone;
     }
@@ -53,7 +47,6 @@ extern CGFloat _UIGridViewDefaultRowHeight;
 
 - (void)dealloc
 {
-    [_seperatorView release];
     [_contentView release];
     [_accessoryView release];
     [_textLabel release];
@@ -70,9 +63,8 @@ extern CGFloat _UIGridViewDefaultRowHeight;
     [super layoutSubviews];
     
     const CGRect bounds = self.bounds;
-    BOOL showingSeperator = !_seperatorView.hidden;
     
-    CGRect contentFrame = CGRectMake(0,0,bounds.size.width,bounds.size.height-(showingSeperator? 1 : 0));
+    CGRect contentFrame = CGRectMake(0,0,bounds.size.width,bounds.size.height);
     CGRect accessoryRect = CGRectMake(bounds.size.width,0,0,0);
     
     if(_accessoryView) {
@@ -92,11 +84,6 @@ extern CGFloat _UIGridViewDefaultRowHeight;
     [self sendSubviewToBack:_backgroundView];
     [self bringSubviewToFront:_contentView];
     [self bringSubviewToFront:_accessoryView];
-    
-    if (showingSeperator) {
-        _seperatorView.frame = CGRectMake(0,bounds.size.height-1,bounds.size.width,1);
-        [self bringSubviewToFront:_seperatorView];
-    }
     
     if (_style == UIGridViewCellStyleDefault) {
         const CGFloat padding = 5;
@@ -149,11 +136,6 @@ extern CGFloat _UIGridViewDefaultRowHeight;
     }
     
     return _textLabel;
-}
-
-- (void)_setSeparatorStyle:(UIGridViewCellSeparatorStyle)theStyle color:(UIColor *)theColor
-{
-    [_seperatorView setSeparatorStyle:theStyle color:theColor];
 }
 
 - (void)_setHighlighted:(BOOL)highlighted forViews:(id)subviews

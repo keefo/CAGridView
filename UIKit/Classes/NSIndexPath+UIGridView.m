@@ -33,7 +33,7 @@
 
 + (NSIndexPath *)indexPathForIndex:(NSInteger)idx inSection:(NSInteger)section;
 {
-    NSInteger path[2] = {section, index};
+    NSInteger path[2] = {section, idx};
     return [self indexPathWithIndexes:path length:2];
 }
 

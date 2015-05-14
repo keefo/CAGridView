@@ -305,9 +305,6 @@
 		A70F7D311B04618E00D824FE /* UIGridViewSection.m in Sources */ = {isa = PBXBuildFile; fileRef = A70F7D2D1B04618E00D824FE /* UIGridViewSection.m */; };
 		A70F7D321B04618E00D824FE /* UIGridViewSectionLabel.h in Headers */ = {isa = PBXBuildFile; fileRef = A70F7D2E1B04618E00D824FE /* UIGridViewSectionLabel.h */; };
 		A70F7D331B04618E00D824FE /* UIGridViewSectionLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = A70F7D2F1B04618E00D824FE /* UIGridViewSectionLabel.m */; };
-		A70F7D351B04629300D824FE /* UIGridViewCell+UIPrivate.h in Headers */ = {isa = PBXBuildFile; fileRef = A70F7D341B04629300D824FE /* UIGridViewCell+UIPrivate.h */; };
-		A70F7D381B0463A100D824FE /* UIGridViewCellSeparator.h in Headers */ = {isa = PBXBuildFile; fileRef = A70F7D361B0463A100D824FE /* UIGridViewCellSeparator.h */; };
-		A70F7D391B0463A100D824FE /* UIGridViewCellSeparator.m in Sources */ = {isa = PBXBuildFile; fileRef = A70F7D371B0463A100D824FE /* UIGridViewCellSeparator.m */; };
 		A70F7D411B048C0D00D824FE /* NSIndexPath+UIGridView.h in Headers */ = {isa = PBXBuildFile; fileRef = A70F7D3F1B048C0D00D824FE /* NSIndexPath+UIGridView.h */; };
 		A70F7D421B048C0D00D824FE /* NSIndexPath+UIGridView.m in Sources */ = {isa = PBXBuildFile; fileRef = A70F7D401B048C0D00D824FE /* NSIndexPath+UIGridView.m */; };
 /* End PBXBuildFile section */
@@ -616,9 +613,6 @@
 		A70F7D2D1B04618E00D824FE /* UIGridViewSection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIGridViewSection.m; sourceTree = "<group>"; };
 		A70F7D2E1B04618E00D824FE /* UIGridViewSectionLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIGridViewSectionLabel.h; sourceTree = "<group>"; };
 		A70F7D2F1B04618E00D824FE /* UIGridViewSectionLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIGridViewSectionLabel.m; sourceTree = "<group>"; };
-		A70F7D341B04629300D824FE /* UIGridViewCell+UIPrivate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIGridViewCell+UIPrivate.h"; sourceTree = "<group>"; };
-		A70F7D361B0463A100D824FE /* UIGridViewCellSeparator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIGridViewCellSeparator.h; sourceTree = "<group>"; };
-		A70F7D371B0463A100D824FE /* UIGridViewCellSeparator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIGridViewCellSeparator.m; sourceTree = "<group>"; };
 		A70F7D3F1B048C0D00D824FE /* NSIndexPath+UIGridView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSIndexPath+UIGridView.h"; sourceTree = "<group>"; };
 		A70F7D401B048C0D00D824FE /* NSIndexPath+UIGridView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSIndexPath+UIGridView.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -966,8 +960,6 @@
 				14FA8C5C121DA4A000C4264B /* UIViewLayoutManager.m */,
 				A70F7D2C1B04618E00D824FE /* UIGridViewSection.h */,
 				A70F7D2D1B04618E00D824FE /* UIGridViewSection.m */,
-				A70F7D361B0463A100D824FE /* UIGridViewCellSeparator.h */,
-				A70F7D371B0463A100D824FE /* UIGridViewCellSeparator.m */,
 				A70F7D2E1B04618E00D824FE /* UIGridViewSectionLabel.h */,
 				A70F7D2F1B04618E00D824FE /* UIGridViewSectionLabel.m */,
 			);
@@ -995,7 +987,6 @@
 				1443DF23121F0D5A00E07C4A /* UIScreenMode+UIPrivate.h */,
 				14805F5812A6E2AE0080C4BA /* UIScrollView+UIPrivate.h */,
 				14A726B91213303400648C9B /* UITableViewCell+UIPrivate.h */,
-				A70F7D341B04629300D824FE /* UIGridViewCell+UIPrivate.h */,
 				14A726BA1213303400648C9B /* UITouch+UIPrivate.h */,
 				14A726BB1213303400648C9B /* UIView+UIPrivate.h */,
 				14A726BC1213303400648C9B /* UIViewController+UIPrivate.h */,
@@ -1122,7 +1113,6 @@
 				148985BB12EE2CFF003D4751 /* UIPinchGestureRecognizer.h in Headers */,
 				148985BD12EE2CFF003D4751 /* UIPopoverController.h in Headers */,
 				148985BF12EE2CFF003D4751 /* UIProgressView.h in Headers */,
-				A70F7D351B04629300D824FE /* UIGridViewCell+UIPrivate.h in Headers */,
 				148985C112EE2CFF003D4751 /* UIResponder.h in Headers */,
 				148985C312EE2CFF003D4751 /* UIResponderAppKitIntegration.h in Headers */,
 				148985C512EE2CFF003D4751 /* UIScreen.h in Headers */,
@@ -1139,7 +1129,6 @@
 				148985D912EE2CFF003D4751 /* UITableViewController.h in Headers */,
 				148985DB12EE2CFF003D4751 /* UITapGestureRecognizer.h in Headers */,
 				148985DD12EE2CFF003D4751 /* UITextField.h in Headers */,
-				A70F7D381B0463A100D824FE /* UIGridViewCellSeparator.h in Headers */,
 				148985DF12EE2CFF003D4751 /* UITextInputTraits.h in Headers */,
 				148985E012EE2CFF003D4751 /* UITextView.h in Headers */,
 				148985E212EE2CFF003D4751 /* UIToolbar.h in Headers */,
@@ -1280,7 +1269,6 @@
 				14FA8C70121DA4A000C4264B /* UIThreePartImage.m in Sources */,
 				14FA8C72121DA4A000C4264B /* UIViewAnimationGroup.m in Sources */,
 				14FA8C74121DA4A000C4264B /* UIViewLayoutManager.m in Sources */,
-				A70F7D391B0463A100D824FE /* UIGridViewCellSeparator.m in Sources */,
 				145335661226F03E0005644F /* UITextLayer.m in Sources */,
 				1453356A1226F1F90005644F /* UIBulletGlyphGenerator.m in Sources */,
 				145335721226F2720005644F /* UICustomNSTextView.m in Sources */,

@@ -16,12 +16,6 @@ typedef enum {
 } UIGridViewCellAccessoryType;
 
 typedef enum {
-    UIGridViewCellSeparatorStyleNone,
-    UIGridViewCellSeparatorStyleSingleLine,
-    UIGridViewCellSeparatorStyleSingleLineEtched
-} UIGridViewCellSeparatorStyle;
-
-typedef enum {
     UIGridViewCellStyleDefault,
     UIGridViewCellStyleValue1,
     UIGridViewCellStyleValue2,
@@ -40,14 +34,12 @@ typedef enum {
     UIGridViewCellEditingStyleInsert
 } UIGridViewCellEditingStyle;
 
-@class UIGridViewCellSeparator, UILabel, UIImageView;
-
+@class UILabel, UIImageView;
 
 
 @interface UIGridViewCell : UIView {
 @private
     UIGridViewCellStyle _style;
-    UIGridViewCellSeparator *_seperatorView;
     UIView *_contentView;
     UILabel *_textLabel;
     UILabel *_detailTextLabel; // not yet displayed!

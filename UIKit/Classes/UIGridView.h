@@ -72,11 +72,10 @@ typedef enum {
     __unsafe_unretained id<UIGridViewDataSource> _dataSource;
     BOOL _needsReload;
     CGFloat _rowHeight;
-    UIColor *_separatorColor;
-    UITableViewCellSeparatorStyle _separatorStyle;
     UIView *_tableHeaderView;
     UIView *_tableFooterView;
     UIView *_backgroundView;
+
     BOOL _allowsSelection;
     BOOL _allowsSelectionDuringEditing;
     BOOL _editing;
@@ -148,6 +147,7 @@ typedef enum {
 
 - (void)setEditing:(BOOL)editing animated:(BOOL)animate;
 
+@property (nonatomic, assign) BOOL fixSectionHeader;
 @property (nonatomic, readonly) UIGridViewStyle style;
 @property (nonatomic, assign) id<UIGridViewDelegate> delegate;
 @property (nonatomic, assign) id<UIGridViewDataSource> dataSource;

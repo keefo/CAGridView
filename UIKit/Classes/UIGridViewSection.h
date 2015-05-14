@@ -56,5 +56,7 @@
 @property (nonatomic, copy) NSString *headerTitle;
 @property (nonatomic, copy) NSString *footerTitle;
 
+- (void)setHeaderTitleAndLabel:(NSString *)headerTitle;
+
 @end
 
