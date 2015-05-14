@@ -34,14 +34,16 @@
 - (void)setItemTitle:(NSString *)itemTitle
 {
     _itemTitle = itemTitle;
-    [titleLayer removeFromSuperlayer];
-    titleLayer = [CATextLayer layer];
-    [titleLayer setFont:@"Helvetica-Bold"];
-    [titleLayer setFontSize:20];
+    if (titleLayer==nil) {
+        titleLayer = [CATextLayer layer];
+        [titleLayer setFont:@"Helvetica-Bold"];
+        [titleLayer setFontSize:20];
+        [titleLayer setAlignmentMode:kCAAlignmentCenter];
+        [self addSublayer:titleLayer];
+    }
     [titleLayer setFrame:NSMakeRect(0, 50, self.bounds.size.width, 40)];
     [titleLayer setString:itemTitle];
-    [titleLayer setAlignmentMode:kCAAlignmentCenter];
-    [self addSublayer:titleLayer];
+    NSLog(@"titleLayer=%@", titleLayer.string);
 }
 
 - (void)setNeedsDisplay{

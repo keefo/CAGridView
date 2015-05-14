@@ -26,7 +26,7 @@
 
 - (NSUInteger)gridView:(SFGridView *)gridView numberOfItemsInSection:(NSInteger)section;
 {
-    return 1;
+    return 10;
 }
 
 - (SFGridItemView *)gridView:(SFGridView *)gridView itemAtIndex:(NSInteger)index inSection:(NSInteger)section;
@@ -38,7 +38,7 @@
         item = [[SFGridItemView alloc] initWithReuseIdentifier:reuseIdentifier];
     }
 
-    item.itemTitle = [NSString stringWithFormat:@"%lu", index];
+    item.itemTitle = [NSString stringWithFormat:@"%lu", index+1];
     item.itemImage = [NSImage imageNamed:NSImageNameFolder];
     item.masksToBounds = YES;
     item.cornerRadius = 10;

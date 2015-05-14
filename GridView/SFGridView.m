@@ -99,13 +99,18 @@ NSString *const SFGridViewItemsIndexSetKey = @"SFGridViewItemsIndexSetKey";
 {
     [self setWantsLayer:YES];
     hostedLayer = [CALayer layer];
-    hostedLayer.backgroundColor = [[NSColor redColor] CGColor];
+    hostedLayer.autoresizingMask = NSViewWidthSizable|NSViewHeightSizable;
+    //hostedLayer.backgroundColor = [[NSColor redColor] CGColor];
     [self setLayer:hostedLayer];
-   
-    [[self enclosingScrollView] setDrawsBackground:YES];
-    [[self enclosingScrollView] setBackgroundColor:[NSColor yellowColor]];
+    [CATransaction begin];
+    [CATransaction setValue:(id)kCFBooleanTrue forKey:kCATransactionDisableActions];
+    [self.layer setFrame:self.bounds];
+    [CATransaction commit];
     
-    [nc addObserver:self selector:@selector(updateVisibleRect) name:NSWindowDidResizeNotification object:self.window];
+//    [[self enclosingScrollView] setDrawsBackground:YES];
+//    [[self enclosingScrollView] setBackgroundColor:[NSColor yellowColor]];
+    
+    [nc addObserver:self selector:@selector(windowDidResize:) name:NSWindowDidResizeNotification object:self.window];
 }
 
 - (void)drawRect:(NSRect)dirtyRect
@@ -119,12 +124,18 @@ NSString *const SFGridViewItemsIndexSetKey = @"SFGridViewItemsIndexSetKey";
     return [super enclosingScrollView];
 }
 
+- (void)windowDidResize:(id)d
+{
+    [self setFrame:self.frame];
+}
+
 - (void)setFrame:(NSRect)frameRect {
     NSRect r=[[self enclosingScrollView] frame];
     if (frameRect.size.width!=r.size.width) {
         frameRect.size.width=r.size.width;
     }
     BOOL animated = (self.frame.size.width == frameRect.size.width ? NO : YES);
+    animated = NO;
     [super setFrame:frameRect];
     [self refreshGridViewAnimated:animated initialCall:YES];
 }
@@ -177,7 +188,6 @@ NSString *const SFGridViewItemsIndexSetKey = @"SFGridViewItemsIndexSetKey";
             }
             [keyedVisibleItems setObject:item forKey:@(item.index)];
             [self.layer addSublayer:item];
-            [item setNeedsDisplay];
         }
     }];
 }
@@ -232,23 +242,28 @@ NSString *const SFGridViewItemsIndexSetKey = @"SFGridViewItemsIndexSetKey";
 - (void)refreshGridViewAnimated:(BOOL)animated initialCall:(BOOL)initialCall {
     
     isInitialCall = initialCall;
-    
+    NSScrollView *scrollView = self.enclosingScrollView;
     CGSize size = self.frame.size;
     CGFloat newHeight = [self numberOfRowsInGridView] * self.itemSize.height + _contentInset * 2;
     if (ABS(newHeight - size.height) > 1) {
         size.height = newHeight;
     }
-    if (size.height<NSHeight(self.enclosingScrollView.frame)) {
-        size.height=NSHeight(self.enclosingScrollView.frame);
+    if (size.height<NSHeight(scrollView.frame)) {
+        size.height=NSHeight(scrollView.frame);
     }
-    if (size.width<NSWidth(self.enclosingScrollView.frame)) {
-        size.width=NSWidth(self.enclosingScrollView.frame);
+    if (size.width<NSWidth(scrollView.frame)) {
+        size.width=NSWidth(scrollView.frame);
     }
     if (size.width!=self.frame.size.width || size.height!=self.frame.size.height) {
         [super setFrameSize:size];
-    }
     
-    NSLog(@"%@", NSStringFromRect(self.frame));
+        [CATransaction begin];
+        [CATransaction setValue:(id)kCFBooleanTrue forKey:kCATransactionDisableActions];
+        [self.layer setFrame:self.bounds];
+        [CATransaction commit];
+    }
+
+    [scrollView reflectScrolledClipView:[scrollView contentView]];
     
     [self _refreshInset];
     
@@ -263,7 +278,7 @@ NSString *const SFGridViewItemsIndexSetKey = @"SFGridViewItemsIndexSetKey";
 }
 
 - (void)_refreshInset {
-    _contentInset = 50;
+    _contentInset = 20;
 }
 
 - (NSRect)clippedRect {
@@ -330,17 +345,20 @@ NSString *const SFGridViewItemsIndexSetKey = @"SFGridViewItemsIndexSetKey";
 }
 
 - (NSRect)rectForItemAtIndex:(NSUInteger)index {
+    
     NSUInteger columns = [self numberOfColumnsInGridView];
     NSUInteger columnWidth = (NSUInteger)floor((NSWidth(self.bounds)-_contentInset-_contentInset)/columns);
     
     CGFloat x = (index % columns) * columnWidth + (int)((columnWidth-self.itemSize.width)/2.0) + _contentInset;
     CGFloat y = NSHeight(self.bounds)-_contentInset - (ceil(index/columns)) * self.itemSize.height;
+    int row = ceil(index/columns)+1;
+    y = NSHeight(self.bounds) - _contentInset - row * (self.itemSize.height+10);
     NSRect itemRect = NSMakeRect(x,
-                                 NSHeight(self.bounds)-y,
+                                 y,
                                  self.itemSize.width,
                                  self.itemSize.height);
     
-    NSLog(@"%lu %@ %@", index, NSStringFromRect(self.bounds), NSStringFromRect(itemRect));
+    NSLog(@"%lu %lu %@", index, row, NSStringFromRect(itemRect));
     
     return itemRect;
 }

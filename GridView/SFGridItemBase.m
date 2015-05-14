@@ -69,5 +69,15 @@ NSString *const kSFGridViewDefaultItemIdentifier = @"SFGridViewItem";
     [self setSelected:NO];
 }
 
+- (void)setOpaque:(BOOL)opaque
+{
+    [super setOpaque:1];
+}
+
+- (void)setFrame:(CGRect)frame
+{
+    [super setFrame:frame];
+    NSLog(@"setFrame=%@", NSStringFromRect(frame));
+}
 
 @end
