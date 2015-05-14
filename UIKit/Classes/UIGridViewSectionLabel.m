@@ -37,22 +37,19 @@
 {
     UIGridViewSectionLabel *label = [[self alloc] init];
     label.text = [NSString stringWithFormat:@"  %@", title];
-    label.font = [UIFont boldSystemFontOfSize:17];
+    label.font = [UIFont boldSystemFontOfSize:11];
     label.textColor = [UIColor whiteColor];
-    label.shadowColor = [UIColor colorWithRed:100/255.f green:105/255.f blue:110/255.f alpha:1];
-    label.shadowOffset = CGSizeMake(0,1);
+    //label.shadowColor = [UIColor colorWithRed:100/255.f green:105/255.f blue:110/255.f alpha:1];
+    //label.shadowOffset = CGSizeMake(0,1);
     return [label autorelease];
 }
 
 - (void)drawRect:(CGRect)rect
 {
     const CGSize size = self.bounds.size;
-    
-    [[UIColor colorWithRed:166/255.f green:177/255.f blue:187/255.f alpha:1] setFill];
-    UIRectFill(CGRectMake(0.f, 0.f, size.width, 1.f));
-    
-    UIColor *startColor = [UIColor colorWithRed:145/255.f green:158/255.f blue:171/255.f alpha:1];
-    UIColor *endColor = [UIColor colorWithRed:185/255.f green:193/255.f blue:201/255.f alpha:1];
+
+    UIColor *startColor = [UIColor colorWithRed:0.255 green:0.249 blue:0.249 alpha:1.000];
+    UIColor *endColor = [UIColor colorWithRed:0.114 green:0.109 blue:0.107 alpha:1.000];
     CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
     CGFloat locations[2] = {0.f, 1.f};
     const void *colors[2] = {startColor.CGColor, endColor.CGColor};
@@ -64,6 +61,17 @@
     CFRelease(gradientColors);
     [[UIColor colorWithRed:153/255.f green:158/255.f blue:165/255.f alpha:1] setFill];
     UIRectFill(CGRectMake(0.f, size.height - 1.f, size.width, 1.f));
+    
+    [[UIColor colorWithWhite:0.174 alpha:1.000] setFill];
+    UIRectFill(CGRectMake(0.f, 0.f, size.width, 1.f));
+    [[UIColor colorWithRed:0.345 green:0.353 blue:0.312 alpha:1.000] setFill];
+    UIRectFill(CGRectMake(0.f, 1.0f, size.width, 1.f));
+    
+    [[UIColor blackColor] setFill];
+    UIRectFill(CGRectMake(0.f, size.height-1, size.width, 2.f));
+    [[UIColor colorWithRed:0.239 green:0.245 blue:0.216 alpha:1.000] setFill];
+    UIRectFill(CGRectMake(0.f, size.height-2, size.width, 1.f));
+    
     [super drawRect:rect];
 }
 

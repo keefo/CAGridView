@@ -99,13 +99,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		A70F7CD91B0430E500D824FE = {
+		0C116A201B0525E90018D5E2 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
 				A70F7D1A1B0435DF00D824FE /* Quartz.framework */,
 				A70F7D181B0434EC00D824FE /* QuartzCore.framework */,
+			);
+			name = Frameworks;
+			path = TestUIApp;
+			sourceTree = "<group>";
+		};
+		A70F7CD91B0430E500D824FE = {
+			isa = PBXGroup;
+			children = (
 				A70F7CE41B0430E500D824FE /* TestUIApp */,
 				A70F7D051B0430F500D824FE /* UIKit.xcodeproj */,
+				0C116A201B0525E90018D5E2 /* Frameworks */,
 				A70F7CF81B0430E500D824FE /* TestUIAppTests */,
 				A70F7CE31B0430E500D824FE /* Products */,
 			);
@@ -489,6 +498,7 @@
 				A70F7D011B0430E500D824FE /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		A70F7D021B0430E500D824FE /* Build configuration list for PBXNativeTarget "TestUIAppTests" */ = {
 			isa = XCConfigurationList;
@@ -497,6 +507,7 @@
 				A70F7D041B0430E500D824FE /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

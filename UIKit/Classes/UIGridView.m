@@ -266,15 +266,15 @@ const CGFloat _UIGridViewDefaultRowHeight = 90;
             
             for (NSInteger index=0; index<numberOfItems; index++) {
                 NSIndexPath *indexPath = [NSIndexPath indexPathForIndex:index inSection:section];
-                CGRect rowRect = [self rectForItemAtIndex:indexPath.index andSection:indexPath.section];
-                if (CGRectIntersectsRect(rowRect,visibleBounds) && rowRect.size.height > 0) {
+                CGRect itemect = [self rectForItemAtIndex:indexPath.index andSection:indexPath.section];
+                if (CGRectIntersectsRect(itemect,visibleBounds) && itemect.size.height > 0) {
                     UIGridViewCell *cell = [availableCells objectForKey:indexPath] ?: [self.dataSource gridView:self cellForRowAtIndexPath:indexPath];
                     if (cell) {
                         [_cachedCells setObject:cell forKey:indexPath];
                         [availableCells removeObjectForKey:indexPath];
                         cell.highlighted = [_highlightedRow isEqual:indexPath];
                         cell.selected = [_selectedRow isEqual:indexPath];
-                        cell.frame = rowRect;
+                        cell.frame = itemect;
                         cell.backgroundColor = self.backgroundColor;
                         [cell _setSeparatorStyle:_separatorStyle color:_separatorColor];
                         [self addSubview:cell];

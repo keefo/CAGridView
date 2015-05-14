@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>6A5131F8-823A-47F6-9AFD-168741F1BBF8</string>
+	<key>IDESourceControlProjectName</key>
+	<string>TestUIApp</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>600029CA8275F71D2E9881AF178397A001B9E8CE</key>
+		<string>https://github.com/keefo/CAGridView.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>TestUIApp.xcodeproj</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>600029CA8275F71D2E9881AF178397A001B9E8CE</key>
+		<string>../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/keefo/CAGridView.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>600029CA8275F71D2E9881AF178397A001B9E8CE</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>600029CA8275F71D2E9881AF178397A001B9E8CE</string>
+			<key>IDESourceControlWCCName</key>
+			<string>CAGridView</string>
+		</dict>
+	</array>
+</dict>
+</plist>
